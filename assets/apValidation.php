@@ -19,15 +19,19 @@
 			$db_output = $conn->query($sql_query);
 			
 			if($db_output->num_rows > 0)	{
+				$match = false;
 				while($row = $db_output->fetch_assoc()) {
+					echo $username ." 1".$row["AppUsername"];
 					if($username == $row["AppUsername"] && $password == $row["AppPasswrd"])	{
 						$sql_query = "UPDATE ApplicantData SET AppLoginStat='1' WHERE AppUsername=$username";
 						$conn->query($sql_query);
-						header("Location: profile_page_student.html");
-						exit;
+						$match = true;
+						header("Location: app_profile_page.php");
 					}
 				}
-				header("Location: sign_in_student.html");
+				if(!$match)	{
+					header("Location: sign_in_student.html");
+				}
 			}
 			else{
 				header("Location: sign_in_student.html");
