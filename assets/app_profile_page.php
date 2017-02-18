@@ -85,6 +85,56 @@
               <img src= <?php> $picURL ?> width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>Label</h4>
               <span class="text-muted">Something else</span>
+			  <div class="col-xs-6">
+			<?php
+				if(isset($_POST["link"])) {
+				$conn = new mysqli("sql9.freesqldatabase.com", "sql9159534", "BNTn9f31zL", "sql9159534");
+
+				if ($conn->connect_error) {
+					die("Connection failed: " . $conn->connect_error);
+				}
+				$link = $_POST["link"];
+				$link = mysql_real_escape_string($link);
+				
+				$sql_query = "UPDATE ApployerData SET AppLink = $link WHERE AppLoginStat=1";
+				$conn->query($sql_query);
+				
+			}else {?>
+			<form class="form-signin">
+				<h2 class="form-signin-heading"></h2>
+				<label for="Video_URL" class="sr-only">Video URL</label>
+				<input type="email" name="link" class="form-control" placeholder="Video URL" required autofocus>
+			</form>
+			<?php>
+			if(isset($_POST["tag"])) {
+				$tag = $_POST["tag"];
+				$tag = mysql_real_escape_string($tag);
+				
+				$sql_query = "UPDATE ApplicantData SET AppTag = $tag WHERE AppLoginStat=1";
+				$conn->query($sql_query);
+				
+			}else {
+            ?>
+			<form class="form-signin">
+				<h2 class="form-signin-heading"></h2>
+				<label for="Tag" class="sr-only">Profession Tag</label>
+				<input type="text" name="tag" class="form-control" placeholder="Profession Tag" required>
+            </form>
+			<?php>
+			if(isset($_POST["pic"])) {
+				$pic = $_POST["pic"];
+				$pic = mysql_real_escape_string($pic);
+				
+				$sql_query = "UPDATE ApplicantData SET AppPic = $pic WHERE AppLoginStat=1";
+				$conn->query($sql_query);
+				
+			}else {?>
+			<form class="form-signin">
+				<h2 class="form-signin-heading"></h2>
+				<label for="Profile_picture" class="sr-only">Profile Picture</label>
+				<input type="text" name="pic" class="form-control" placeholder="Profile Picture URL" required>
+            </form>
+			</div>
             </div>
       </div>
     </div>
